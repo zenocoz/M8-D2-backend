@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+// const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
 
 const userSchema = new mongoose.Schema({
@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.statics.findByCredentials = async function (userName, password) {
-  const user = await this.findOne({ userName })
+  const user = await this.findOne({userName})
 
   if (user) {
     const isMatch = await bcrypt.compare(password, user.password)
