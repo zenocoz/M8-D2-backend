@@ -1,7 +1,9 @@
+import express from "express"
+
 const UserModel = require("./schema")
 const {adminOnly, basic} = require("../auth/authTools")
 
-const usersRouter = express.Router()
+const usersRouter: express.Router = express.Router()
 
 usersRouter.get("/", basic, adminOnly, async (req, res, next) => {
   try {

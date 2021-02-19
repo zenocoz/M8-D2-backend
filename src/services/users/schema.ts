@@ -1,3 +1,5 @@
+import {NextFunction} from "express"
+
 // const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
 
@@ -26,7 +28,10 @@ const userSchema = new mongoose.Schema({
   },
 })
 
-userSchema.statics.findByCredentials = async function (userName, password) {
+userSchema.statics.findByCredentials = async function (
+  userName: string,
+  password: string
+) {
   const user = await this.findOne({userName})
 
   if (user) {
@@ -46,7 +51,7 @@ userSchema.methods.toJSON = function () {
   return userObject
 }
 
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next: NextFunction) {
   const user = this
   if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 10)
